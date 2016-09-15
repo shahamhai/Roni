@@ -10,20 +10,9 @@ var mongoose = require('mongoose'),
  * Candlestick time Schema
  */
 var CandlestickTimeSchema = new Schema({
-  name: {
-    type: String,
-    default: '',
-    required: 'Please fill Candlestick time name',
-    trim: true
-  },
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
-  }
+  StartingTime: Date,
+  TimeFrame: String,
+  CandlestickList: [{time: Date, open: Number, high: Number, low: Number, close: Number}]
 });
 
 mongoose.model('CandlestickTime', CandlestickTimeSchema);
