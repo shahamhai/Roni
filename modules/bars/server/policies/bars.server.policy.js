@@ -34,7 +34,7 @@ exports.invokeRolesPolicies = function () {
     roles: ['guest'],
     allows: [{
       resources: '/api/bars',
-      permissions: ['get','post']
+      permissions: ['get','post'] // temporary change. need to remove post
     }, {
       resources: '/api/bars/:barId',
       permissions: ['get']

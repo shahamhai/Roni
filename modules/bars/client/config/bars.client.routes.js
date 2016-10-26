@@ -17,7 +17,7 @@
       .state('bars.list', {
         url: '',
         templateUrl: 'modules/bars/client/views/list-bars.client.view.html',
-        controller: 'BarsListController',
+        controller: 'BarsController',
         controllerAs: 'vm',
         data: {
           pageTitle: 'Bars List'

@@ -6,9 +6,9 @@
     .module('bars')
     .controller('BarsController', BarsController);
 
-  BarsController.$inject = ['$scope', '$state', 'Authentication', 'barResolve'];
+  BarsController.$inject = ['$scope', '$rootScope', '$state', 'Authentication', 'barResolve'];
 
-  function BarsController ($scope, $state, Authentication, bar) {
+  function BarsController ($scope, $rootScope, $state, Authentication, bar) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,7 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    $rootScope.barList = bar.find().sort('-startTime');
 
     // Remove existing Bar
     function remove() {
