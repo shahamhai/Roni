@@ -16,8 +16,8 @@ var BarSchema = new Schema({
   lowPrice:Number,
   closePrice:Number,
   closeTime:Date,
-  AUpLine:Number,
-  ALowLine:Number,
+  aUpLine:Number,
+  aLowLine:Number,
   missedHit:Number,
   stopLossOn:Number,
   sendSellAt:Number,
@@ -25,9 +25,9 @@ var BarSchema = new Schema({
   sellFilledAt:Number,
   buyFilledAt:Number,
   profitSetAt:Number,
-  stopLossSet:Number,
+  stopLossSetAt:Number,
   profitTakenAt:Number,
-  stoplossHit:Number,
+  stoplossHitAt:Number,
   profit:Number,
   accumalatedProfit:Number
 });
