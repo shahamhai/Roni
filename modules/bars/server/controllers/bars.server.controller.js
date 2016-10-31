@@ -13,28 +13,28 @@ var path = require('path'),
  * Create a Bar
  */
 exports.create = function(req, res) {
-  var bar = new Bar(req.body);
-  // bar.startTime = new Date(req.body.startTime.replace('Pacific Daylight Time','PDT'));
-  // bar.openPrice = req.body.openPrice;
-  // bar.highPrice = req.body.highPrice;
-  // bar.lowPrice = req.body.lowPrice;
-  // bar.closePrice = req.body.closePrice;
-  // bar.closeTime = new Date(req.body.closeTime.replace('Pacific Daylight Time','PDT')); // date
-  // bar.AUpLine = req.body.AUpLine;
-  // bar.ALowLine = req.body.ALowLine;
-  // bar.missedHit = req.body.missedHit;
-  // bar.stopLossOn = req.body.stopLossOn;
-  // bar.sendSellAt = req.body.sendSellAt;
-  // bar.sendBuyAt = req.body.sendBuyAt;
-  // bar.sellFilledAt = req.body.sellFilledAt;
-  // bar.buyFilledAt = req.body.buyFilledAt;
-  // bar.profitSetAt = req.body.profitSetAt;
-  // bar.stopLossSet = req.body.stopLossSet;
-  // bar.profitTakenAt = req.body.profitTakenAt;
-  // bar.stoplossHit = req.body.stoplossHit;
-  // bar.profit = req.body.profit;
-  // bar.accumalatedProfit = req.body.accumalatedProfit;
-  // bar.user = req.user;
+  //var bar = new Bar(req.body);
+  bar.startTime = new Date(req.body.startTime * 1000);
+  bar.openPrice = req.body.openPrice;
+  bar.highPrice = req.body.highPrice;
+  bar.lowPrice = req.body.lowPrice;
+  bar.closePrice = req.body.closePrice;
+  bar.closeTime = new Date(req.body.closeTime * 1000); // date
+  bar.AUpLine = req.body.AUpLine;
+  bar.ALowLine = req.body.ALowLine;
+  bar.missedHit = req.body.missedHit;
+  bar.stopLossOn = req.body.stopLossOn;
+  bar.sendSellAt = req.body.sendSellAt;
+  bar.sendBuyAt = req.body.sendBuyAt;
+  bar.sellFilledAt = req.body.sellFilledAt;
+  bar.buyFilledAt = req.body.buyFilledAt;
+  bar.profitSetAt = req.body.profitSetAt;
+  bar.stopLossSet = req.body.stopLossSet;
+  bar.profitTakenAt = req.body.profitTakenAt;
+  bar.stoplossHit = req.body.stoplossHit;
+  bar.profit = req.body.profit;
+  bar.accumalatedProfit = req.body.accumalatedProfit;
+  bar.user = req.user;
 
   bar.save(function(err) {
     if (err) {
