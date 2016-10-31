@@ -14,6 +14,7 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   //var bar = new Bar(req.body);
+  var bar = new Bar();
   bar.startTime = new Date(req.body.startTime * 1000);
   bar.openPrice = req.body.openPrice;
   bar.highPrice = req.body.highPrice;
@@ -34,7 +35,7 @@ exports.create = function(req, res) {
   bar.stoplossHit = req.body.stoplossHit;
   bar.profit = req.body.profit;
   bar.accumalatedProfit = req.body.accumalatedProfit;
-  bar.user = req.user;
+  //bar.user = req.user;
 
   bar.save(function(err) {
     if (err) {
