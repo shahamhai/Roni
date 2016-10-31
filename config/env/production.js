@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  secure: true,
+  secure: false,
   port: process.env.PORT || 8443,
   db: {
     uri: 'mongodb://user1:1234@ds035177.mlab.com:35177/roni_production',
