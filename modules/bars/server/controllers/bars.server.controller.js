@@ -102,7 +102,7 @@ exports.delete = function(req, res) {
  * List of Bars
  */
 exports.list = function(req, res) { 
-  Bar.find().sort('-created').populate('user', 'displayName').exec(function(err, bars) {
+  Bar.find().sort('startTime').exec(function(err, bars) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
