@@ -9,10 +9,13 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
+
 /**
  * Create a Bar
  */
 exports.create = function(req, res) {
+  var io = req.app.get('socketio'); // tacke out socket instance from the app container
+
   //var bar = new Bar(req.body);
   var bar = new Bar();
   bar.startTime = new Date(req.body.startTime * 1000);
@@ -21,8 +24,8 @@ exports.create = function(req, res) {
   bar.lowPrice = req.body.lowPrice;
   bar.closePrice = req.body.closePrice;
   bar.closeTime = new Date(req.body.closeTime * 1000); // date
-  bar.AUpLine = req.body.AUpLine;
-  bar.ALowLine = req.body.ALowLine;
+  bar.aUpLine = req.body.aUpLine;
+  bar.aLowLine = req.body.aLowLine;
   bar.missedHit = req.body.missedHit;
   bar.stopLossOn = req.body.stopLossOn;
   bar.sendSellAt = req.body.sendSellAt;
@@ -30,9 +33,9 @@ exports.create = function(req, res) {
   bar.sellFilledAt = req.body.sellFilledAt;
   bar.buyFilledAt = req.body.buyFilledAt;
   bar.profitSetAt = req.body.profitSetAt;
-  bar.stopLossSet = req.body.stopLossSet;
+  bar.stopLossSetAt = req.body.stopLossSetAt;
   bar.profitTakenAt = req.body.profitTakenAt;
-  bar.stoplossHit = req.body.stoplossHit;
+  bar.stoplossHitAt = req.body.stoplossHitAt;
   bar.profit = req.body.profit;
   bar.accumalatedProfit = req.body.accumalatedProfit;
   //bar.user = req.user;
@@ -44,6 +47,7 @@ exports.create = function(req, res) {
       });
     } else {
       res.jsonp(bar);
+      io.emit('new bar',bar);
     }
   });
 };
@@ -124,7 +128,7 @@ exports.barByID = function(req, res, next, id) {
     });
   }
 
-  Bar.findById(id).populate('user', 'displayName').exec(function (err, bar) {
+  Bar.findById(id).exec(function (err, bar) {
     if (err) {
       return next(err);
     } else if (!bar) {

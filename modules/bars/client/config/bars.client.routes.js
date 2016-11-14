@@ -15,9 +15,9 @@
         template: '<ui-view/>'
       })
       .state('bars.list', {
-        url: '',
-        templateUrl: 'modules/bars/client/views/list-bars.client.view.html',
-        controller: 'BarsController',
+        url: '/',
+        templateUrl: 'modules/bars/views/list-bars.client.view.html',
+        controller: 'BarsListController',
         controllerAs: 'vm',
         data: {
           pageTitle: 'Bars List'
@@ -25,7 +25,7 @@
       })
       .state('bars.create', {
         url: '/create',
-        templateUrl: 'modules/bars/client/views/form-bar.client.view.html',
+        templateUrl: 'modules/bars/views/form-bar.client.view.html',
         controller: 'BarsController',
         controllerAs: 'vm',
         resolve: {
@@ -38,7 +38,7 @@
       })
       .state('bars.edit', {
         url: '/:barId/edit',
-        templateUrl: 'modules/bars/client/views/form-bar.client.view.html',
+        templateUrl: 'modules/bars/views/form-bar.client.view.html',
         controller: 'BarsController',
         controllerAs: 'vm',
         resolve: {
@@ -51,7 +51,7 @@
       })
       .state('bars.view', {
         url: '/:barId',
-        templateUrl: 'modules/bars/client/views/view-bar.client.view.html',
+        templateUrl: 'modules/bars/views/view-bar.client.view.html',
         controller: 'BarsController',
         controllerAs: 'vm',
         resolve: {

@@ -71,6 +71,7 @@ module.exports = function (app, db) {
       require(path.resolve(socketConfiguration))(io, socket);
     });
   });
+  app.set('socketio', io);// make socket.io object available for all server-side files
 
   return server;
 };

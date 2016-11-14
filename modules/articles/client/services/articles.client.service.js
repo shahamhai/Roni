@@ -8,6 +8,9 @@ angular.module('articles').factory('Articles', ['$resource',
     }, {
       update: {
         method: 'PUT'
+      },
+      get: {
+        method: 'GET'
       }
     });
   }

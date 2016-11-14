@@ -14,7 +14,11 @@ module.exports = {
         'public/lib/angular-ui-router/release/angular-ui-router.js',
         'public/lib/angular-ui-utils/ui-utils.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-        'public/lib/angular-file-upload/angular-file-upload.js'
+        'public/lib/angular-file-upload/angular-file-upload.js',
+        'public/lib/angular-plotly/src/angular-plotly.js',
+        'modules/bars/directives/candleChart.js',
+        'https://cdn.rawgit.com/etpinard/plotlyjs-finance/master/plotlyjs-finance.js',
+        'https://cdn.plot.ly/plotly-latest.min.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
