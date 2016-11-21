@@ -14,30 +14,35 @@ var path = require('path'),
  * Create a Bar
  */
 exports.create = function(req, res) {
-  var io = req.app.get('socketio'); // tacke out socket instance from the app container
+  var io = req.app.get('socketio'); // take out socket instance from the app container
 
   //var bar = new Bar(req.body);
   var bar = new Bar();
-  bar.startTime = new Date(req.body.startTime * 1000);
-  bar.openPrice = req.body.openPrice;
-  bar.highPrice = req.body.highPrice;
-  bar.lowPrice = req.body.lowPrice;
-  bar.closePrice = req.body.closePrice;
-  bar.closeTime = new Date(req.body.closeTime * 1000); // date
-  bar.aUpLine = req.body.aUpLine;
-  bar.aLowLine = req.body.aLowLine;
-  bar.missedHit = req.body.missedHit;
-  bar.stopLossOn = req.body.stopLossOn;
-  bar.sendSellAt = req.body.sendSellAt;
-  bar.sendBuyAt = req.body.sendBuyAt;
-  bar.sellFilledAt = req.body.sellFilledAt;
-  bar.buyFilledAt = req.body.buyFilledAt;
-  bar.profitSetAt = req.body.profitSetAt;
-  bar.stopLossSetAt = req.body.stopLossSetAt;
-  bar.profitTakenAt = req.body.profitTakenAt;
-  bar.stoplossHitAt = req.body.stoplossHitAt;
-  bar.profit = req.body.profit;
+  bar.startTime         = new Date(req.body.startTime * 1000);
+  bar.openPrice         = req.body.openPrice;
+  bar.highPrice         = req.body.highPrice;
+  bar.lowPrice          = req.body.lowPrice;
+  bar.closePrice        = req.body.closePrice;
+  bar.closeTime         = new Date(req.body.closeTime * 1000);
+  bar.aUpLine           = req.body.aUpLine;
+  bar.aLowLine          = req.body.aLowLine;
+  bar.missedHit         = req.body.missedHit;
+  bar.stopLossOn        = req.body.stopLossOn;
+  bar.sendSellAt        = req.body.sendSellAt;
+  bar.sendBuyAt         = req.body.sendBuyAt;
+  bar.sellFilledAt      = req.body.sellFilledAt;
+  bar.buyFilledAt       = req.body.buyFilledAt;
+  bar.profitSetAt       = req.body.profitSetAt;
+  bar.stopLossSetAt     = req.body.stopLossSetAt;
+  bar.profitTakenAt     = req.body.profitTakenAt;
+  bar.stoplossHitAt     = req.body.stoplossHitAt;
+  bar.profit            = req.body.profit;
   bar.accumalatedProfit = req.body.accumalatedProfit;
+  bar.contractsAmountD2 = req.body.contractsAmountD2;
+  bar.contractsAmountD3 = req.body.contractsAmountD3;
+  bar.contractsAmountD4 = req.body.contractsAmountD4;
+  bar.profitD3          = req.body.profitD3;
+  bar.profitD4          = req.body.profitD4;
   //bar.user = req.user;
 
   bar.save(function(err) {

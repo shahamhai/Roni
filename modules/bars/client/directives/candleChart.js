@@ -17,9 +17,9 @@
                 },
                 link: function(scope,element,attrs) {
                     scope.$watch('chartp', function(){
-                        console.log('element: ' + element);
-                        console.log('plots: ' + scope.chartp);
-                        console.log('layout: ' + scope.layout);
+                        // console.log('element: ' + element);
+                        // console.log('plots: ' + JSON.stringify(scope.chartp));
+                        // console.log('layout: ' + scope.layout);
                         Plotly.newPlot(element[0], scope.chartp, scope.layout);
 
                     });

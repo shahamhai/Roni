@@ -17,10 +17,8 @@
      barsDates = [];
 
     BarsService.query(function(bars){
-      //console.log(JSON.stringify(data));
       bars.forEach(function(bar) { // arrange data to draw candlestick chart
         pushBar(bar);
-        //console.log('open:'+bar.openPrice+' close:'+bar.closePrice+' high:'+bar.highPrice+' low:'+bar.lowPrice+' start:'+bar.startTime);
       });
       drawChart();
     });
@@ -37,6 +35,7 @@
       barsHigh.push(parseFloat(bar.highPrice));
       barsLow.push(parseFloat(bar.lowPrice));
       barsDates.push(bar.startTime);
+      //console.log('open:'+bar.openPrice+' close:'+bar.closePrice+' high:'+bar.highPrice+' low:'+bar.lowPrice+' start time:'+bar.startTime);
     }
 
     function drawChart(){
@@ -47,11 +46,15 @@
         close: barsClose,
         dates: barsDates
       });
-
-
+      console.log(JSON.stringify(fig.options));
+      //
+      //fig.data[0].y[3]=2166;
+      fig.layout.yaxis.fixedrange=false;
+      fig.layout.paper_bgcolor = '#eee';
+      //
       $scope.data = fig.data;
       $scope.layout = fig.layout;
-      $scope.options = fig.options;
+      $scope.options = {showLink: false, displayLogo: false};
       $scope.plotlyEvents = function (chart) {
         chart.on('plotly_selected', function(event){
           if (event) {
@@ -63,12 +66,6 @@
       };
 
       $scope.chartPlot = fig.data;
-
-
-
     }
-
   }
 })();
-
-

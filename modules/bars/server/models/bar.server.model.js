@@ -29,7 +29,12 @@ var BarSchema = new Schema({
   profitTakenAt:Number,
   stoplossHitAt:Number,
   profit:Number,
-  accumalatedProfit:Number
+  accumalatedProfit:Number,
+  contractsAmountD2:Number,
+  contractsAmountD3:Number,
+  contractsAmountD4:Number,
+  profitD3:Number,
+  profitD4:Number
 });
 
 mongoose.model('Bar', BarSchema);
