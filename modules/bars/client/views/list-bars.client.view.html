@@ -2,32 +2,78 @@
     <div class="page-header">
     <h1>Bars</h1>
     </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+          <ckchart chartp="chartPlot" layout="layout"></ckchart>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+          <table class="table table-hover table-bordered">
+            <tbody>
+              <tr>
+                <td>Market open Hour</td>
+                <td>
+                  <span class="badge">{{dailyResult.openTime | date:'shortTime'}}</span>
+                </td>              
+              </tr>
+              <tr>
+                <td>Market close Hour</td>
+                <td>
+                  <span class="badge">{{dailyResult.closeTime | date:'shortTime'}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Deals closed</td>
+                <td>
+                  <span class="badge">{{dailyResult.closedDeals}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Number of open Contracts D2</td>
+                <td>
+                  <span class="badge">{{dailyResult.contractAmountD2}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Number of open Contracts D3</td>
+                <td>
+                  <span class="badge">{{dailyResult.contractAmountD3}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Number of open Contracts D4</td>
+                <td>
+                  <span class="badge">{{dailyResult.contractAmountD4}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Daily profit 2D</td>
+                <td>
+                  <span class="badge">{{dailyResult.profitD2}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Daily profit 3D</td>
+                <td>
+                  <span class="badge">{{dailyResult.profitD3}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Daily profit 4D</td>
+                <td>
+                  <span class="badge">{{dailyResult.profitD4}}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-    <div class="row">
-        <ckchart chartp="chartPlot" layout="layout"></ckchart>
+        </div>
+      </div>
     </div>
 
 
 
-
-
-
-
-  <div class="list-group">
-    <a data-ng-repeat="bar in vm.bars"
-       data-ui-sref="bars.view({ barId: bar._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span data-ng-bind="bar.created | date:'mediumDate'"></span>
-        by
-        <span data-ng-if="bar.user" data-ng-bind="bar.user.displayName"></span>
-        <span data-ng-if="!bar.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" data-ng-bind="bar.name"></h4>
-    </a>
-  </div>
-  <div class="alert alert-warning text-center" data-ng-if="vm.bars.$resolved && !vm.bars.length">
-    No Bars yet, why don't you <a data-ui-sref="bars.create">create one</a>?
-  </div>
+    
 </section>
