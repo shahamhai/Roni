@@ -9,7 +9,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     // If user is signed in then redirect back home
     if ($scope.authentication.user) {
-      $location.path('/bars/');
+      $location.path('/bar');
     }
 
     $scope.signup = function () {
@@ -30,7 +30,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         $scope.authentication.user = response;
 
         // And redirect to the previous or home page
-        $state.go($state.previous.state.name || 'home', $state.previous.params);
+        //$state.go($state.previous.state.name || 'home', $state.previous.params);
+        $state.go('bars.list');
       }).error(function (response) {
         $scope.error = response.message;
       });
@@ -38,11 +39,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     // OAuth provider request
     $scope.callOauthProvider = function (url) {
-      var redirect_to = $state('bars.list').href;
+      var redirect_to;
 
-      // if ($state.previous) {
-      //   redirect_to = $state.previous.href;
-      // }
+      if ($state.previous) {
+        redirect_to = $state.previous.href;
+      }
 
       // Effectively call OAuth authentication route:
       $window.location.href = url + (redirect_to ? '?redirect_to=' + encodeURIComponent(redirect_to) : '');
