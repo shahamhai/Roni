@@ -7,35 +7,49 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash'),
   minute = 60000,
-  io = app.get('socketio');
+highValues = [];
 
-setInterval(newHighValue,minute);
 
-function newHighValue(){
-	var now = new Date();
-	var minuteAgo = new Date(now.getTime - minute);
-	Bar.find().where('startTime').gte(minuteAgo).exec(function(err,bars){
-		var tickTime = Date(minuteAgo);
-		var highValues = [];
-		for (var i=0; i<bars.length && tickTime<=now; i++) {
-			if (i===bars.length-1 || (bars[i+1].closeTime)>tickTime) {
-				var highValue = new HighValue();
-					highValue.timeOfDay = tickTime;
-					highValue.highValue = bars[i].highPrice;
-					if (bars[i].sellFilledAt)
-						highValue.tradeActivity = 'Sell';
-					else if (bars[i].buyFilledAt)
-						highValue.tradeActivity = 'Buy';
-					else if (bars[i].profitTakenAt)
-						highValue.tradeActivity = 'e-profit';
-					else if (bars[i].stoplossHitAt)
-						highValue.tradeActivity = 'e-stoploss';
-					highValue.save(function(){});
+exports.activate = function(req, res, next) { // run on /bars/ POST before bars controller
+	var io = req.app.get('socketio');
+	HighValue.find().sort('_id').limit(1).exec(function(err,lastHighValue){
+		
+		var timeSinceUpdate = 0;
+		if (lastHighValue && lastHighValue.length && lastHighValue[0].timeOfDay){ //create and save one if the collection is empty
+			timeSinceUpdate = req.body.closeTime*1000 - lastHighValue[0].timeOfDay;
+		}
+		if (Date(req.body.closeTime*1000).getDay()!==lastHighValue[0].timeOfDay.getDay()){ //empty previous day values if a new trade day started
+			HighValue.find().where('closeTime').lt(lastHighValue[0].timeOfDay).exec(function(err,lastDayValues){
+				for (var i = lastDayValues.length - 1; i >= 0; i--) {
+					lastDayValues[i].remove();
+				}
+			});
+		}
+		if (timeSinceUpdate>=5000 || !lastHighValue.length) {
+			Bar.find().sort('_id').where('closeTime').gt(lastHighValue[0].timeOfDay).exec(function(err,bars){
+				var numberOfHighValues = (bars[bars.length-1].closeTime-lastHighValue[0].closeTime)%5000;
+				for(var j=0; j<numberOfHighValues; j++){
+					var highValue = new HighValue();
+					highValue.tradeActivity = '';
+					highValue.timeOfDay = new Date(lastHighValue[0]+j*5000);
+					while(bars.length && bars[0].closeTime<=highValue.timeOfDay){
+						highValue.highValue = bars[0].highPrice;
+						if (req.body.sellFilledAt)
+							highValue.tradeActivity += 'Sell ';
+						else if (req.body.buyFilledAt)
+							highValue.tradeActivity += 'Buy ';
+						else if (req.body.profitTakenAt)
+							highValue.tradeActivity += 'e-profit ';
+						else if (req.body.stoplossHitAt)
+							highValue.tradeActivity += 'e-stoploss ';
+						bars = bars.slice(1, bars.length);
+					}
+					highValue.save();
 					highValues.push(highValue);
-					tickTime = new Date(tickTime.getTime()+5000);
-
-			}
-			io.emit('new time bars', highValues);//
+				}
+				io.emit('high value update', highValues);
+			});
 		}
 	});
-}
+	next();
+};

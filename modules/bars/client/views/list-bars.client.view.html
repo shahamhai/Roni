@@ -1,27 +1,37 @@
-<section data-ng-controller="BarsListController" data-ng-init="find()">
+<section data-ng-controller="BarsListController">
     <div class="page-header">
-    <h1>Bars</h1>
+      <h1>Bars</h1>
     </div>
-    <div class="container-fluid">
+    <div class="container plotly">
+      <ul class="nav nav-tabs" ng-hide="isGuest">
+        <li ng-class="{active : tab === 2}">
+          <a href ng-click="setTab(2)">2D</a>
+        </li>
+        <li ng-class="{active : tab === 3}">
+          <a href ng-click="setTab(3)">3D</a>
+        </li>
+        <li ng-class="{active : tab === 4}">
+          <a href ng-click="setTab(4)">4D</a>
+        </li>
+      </ul>
+      <br>
+      <ckchart chartp="chartPlot" layout="layout"></ckchart>
+
       <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
-          <ckchart chartp="chartPlot" layout="layout"></ckchart>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
+        <h2>day summery</h2>
+        <div class="col-lg-12">
           <table class="table table-hover table-bordered">
             <tbody>
               <tr>
                 <td>Market open Hour</td>
                 <td>
-                  <span class="badge">{{dailyResult.openTime | date:'shortTime'}}</span>
+                  <span class="badge">{{dailyResult.startTime | date:'shortTime'}}</span>
                 </td>              
               </tr>
               <tr>
                 <td>Market close Hour</td>
                 <td>
-                  <span class="badge">{{dailyResult.closeTime | date:'shortTime'}}</span>
+                  <span class="badge">{{dailyResult.endTime | date:'shortTime'}}</span>
                 </td>
               </tr>
               <tr>
@@ -72,6 +82,9 @@
         </div>
       </div>
     </div>
+      
+
+    
 
 
 

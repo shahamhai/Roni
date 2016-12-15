@@ -19,6 +19,7 @@ var BarSchema = new Schema({
   aUpLine:Number,
   aLowLine:Number,
   missedHit:Number,
+  missedHitD4:Number,
   stopLossOn:Number,
   sendSellAt:Number,
   sendBuyAt:Number,

@@ -9,7 +9,7 @@
 
   function CurrentValuesService($resource) {
     return $resource('/api/currentvalue/:currentValueId', {
-      barId: '@_id'
+      currentValueId: '@_id'
     }, {
       update: {
         method: 'PUT'

@@ -15,7 +15,7 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   var io = req.app.get('socketio'); // take out socket instance from the app container
-
+  
   //var bar = new Bar(req.body);
   var bar = new Bar();
   bar.startTime         = new Date(req.body.startTime * 1000);
@@ -27,6 +27,7 @@ exports.create = function(req, res) {
   bar.aUpLine           = req.body.aUpLine;
   bar.aLowLine          = req.body.aLowLine;
   bar.missedHit         = req.body.missedHit;
+  bar.missedHitD4       = req.body.missedHitD4;
   bar.stopLossOn        = req.body.stopLossOn;
   bar.sendSellAt        = req.body.sendSellAt;
   bar.sendBuyAt         = req.body.sendBuyAt;
@@ -53,6 +54,7 @@ exports.create = function(req, res) {
     } else {
       res.jsonp(bar);
       io.emit('new bar',bar);
+
     }
   });
 };
@@ -111,7 +113,9 @@ exports.delete = function(req, res) {
  * List of Bars
  */
 exports.list = function(req, res) { 
-  Bar.find().sort('startTime').exec(function(err, bars) {
+  var today = new Date();
+  today.setHours(0,0,0,0);
+  Bar.find().sort('startTime').where('closeTime').gte(today).exec(function(err, bars) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
