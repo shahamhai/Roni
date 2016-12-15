@@ -5,10 +5,10 @@
     .module('bars')
     .controller('BarsListController', BarsListController);
 
-  BarsListController.$inject = ['BarsService', 'CurrentValuesService', 'HighValuesService', '$scope', 'Socket','Authentication'];
+  BarsListController.$inject = ['BarsService', 'CurrentValuesService', 'HighValuesService', '$scope', 'Socket','Authentication', '$state'];
 
 
-  function BarsListController(BarsService, CurrentValuesService, HighValuesService, $scope, Socket, Authentication) {
+  function BarsListController(BarsService, CurrentValuesService, HighValuesService, $scope, Socket, Authentication, $state) {
     var vm = this,
     barsOpen = [],
     barsClose = [],
@@ -37,7 +37,9 @@
     $scope.roles = (Authentication.user && Authentication.user.roles.length) ? Authentication.user.roles : ['guest'];
     $scope.isGuest = ($scope.roles[0]==='guest') ? true : false;
 
-  
+    if(!Authentication.user){
+      $state.go('home');
+    }
 
     BarsService.query(function(bars){
       CurrentValuesService.query(function(value){
