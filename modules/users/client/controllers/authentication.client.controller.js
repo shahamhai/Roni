@@ -38,7 +38,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     // OAuth provider request
     $scope.callOauthProvider = function (url) {
-      var redirect_to = $state('bars.list');
+      var redirect_to = $state('bars.list').href;
 
       // if ($state.previous) {
       //   redirect_to = $state.previous.href;
